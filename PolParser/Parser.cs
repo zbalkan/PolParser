@@ -34,20 +34,11 @@ namespace PolParser
             return policies.AsReadOnly();
         }
 
-        private static string GetKeyName(string[] parts)
-        {
-            return parts[0] ?? string.Empty;
-        }
+        private static string GetKeyName(string[] parts) => parts[0] ?? string.Empty;
 
-        private static string GetValueName(string[] parts)
-        {
-            return parts[1] ?? string.Empty;
-        }
+        private static string GetValueName(string[] parts) => parts[1] ?? string.Empty;
 
-        private static RegType GetValueType(string[] parts)
-        {
-            return parts[2] != "" ? (RegType)(int)char.Parse(parts[2]) : RegType.REG_NONE;
-        }
+        private static RegType GetValueType(string[] parts) => parts[2] != "" ? (RegType)(int)char.Parse(parts[2]) : RegType.REG_NONE;
 
         private static string GetValueData(string[] elements, RegType vType)
         {
@@ -106,8 +97,8 @@ namespace PolParser
 
         private static int ByteArrayToInt(byte[] input)
         {
-            Int32 result32 = 0;
-            Int64 result64 = 0;
+            int result32bit = 0;
+            long result64bit = 0;
 
             if (input.Length > 8)
             {
@@ -117,19 +108,19 @@ namespace PolParser
             {
                 for (var i = input.Length - 1; i >= 0; i -= 1)
                 {
-                    result32 <<= 8;
-                    result32 += input[i];
+                    result32bit <<= 8;
+                    result32bit += input[i];
                 }
-                return result32;
+                return result32bit;
             }
             else if (input.Length <= 4)
             {
                 for (var i = input.Length - 1; i >= 0; i -= 1)
                 {
-                    result64 <<= 8;
-                    result64 += input[i];
+                    result64bit <<= 8;
+                    result64bit += input[i];
                 }
-                return (int)result64;
+                return (int)result64bit;
             }
             else
             {
