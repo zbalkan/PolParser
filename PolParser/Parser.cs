@@ -10,7 +10,7 @@ namespace PolParser
     /// <remarks>
     ///     Based on <see href="https://github.com/PowerShell/GPRegistryPolicyParser"/>.
     /// </remarks>
-    internal static class Parser
+    public static class Parser
     {
         public static IReadOnlyList<GPRegistryPolicy> ReadPolFile(string path)
         {

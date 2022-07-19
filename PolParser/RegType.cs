@@ -1,6 +1,6 @@
 ﻿namespace PolParser
 {
-    internal enum RegType
+    public enum RegType
     {
         REG_NONE = 0,   // No value type
         REG_SZ = 1, // Unicode null terminated string

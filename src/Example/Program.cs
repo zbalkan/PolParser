@@ -1,4 +1,6 @@
-﻿namespace PolParser
+﻿using PolParser;
+
+namespace Example
 {
     internal class Program
     {

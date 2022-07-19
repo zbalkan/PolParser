@@ -1,6 +1,6 @@
 ﻿namespace PolParser
 {
-    internal class GPRegistryPolicy
+    public class GPRegistryPolicy
     {
         public string? KeyName { get; set; }
         public string? ValueName { get; set; }
