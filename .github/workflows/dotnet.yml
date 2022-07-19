@@ -49,7 +49,7 @@ jobs:
       run: |
         release_name="PolParser-alpha-${{ matrix.target }}"
         # Build no self contained
-        dotnet publish src/PolParser.csproj --framework net6.0 --runtime "${{ matrix.target }}" -c Release -o "$release_name" --no-self-contained
+        dotnet publish src/PolParser/PolParser.csproj --framework net6.0 --runtime "${{ matrix.target }}" -c Release -o "$release_name" --no-self-contained
         
         # Pack files
         if [ "${{ matrix.target }}" == "win-x64" ]; then
@@ -66,7 +66,7 @@ jobs:
       run: |
         release_name="PolParser-alpha-${{ matrix.target }}-self-contained"
         # Build self contained & trimmed
-        dotnet publish src/PolParser.csproj --framework net6.0 --runtime "${{ matrix.target }}" -c Release -o "$release_name" --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true 
+        dotnet publish src/PolParser/PolParser.csproj --framework net6.0 --runtime "${{ matrix.target }}" -c Release -o "$release_name" --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true 
         
         # Remove PDB files
         rm ./${release_name}/*.pdb
