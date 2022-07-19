@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "src\Example\Example.csproj", "{B6DC8441-1174-4F4B-8FF7-2B135FCD1242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolParser", "PolParser\PolParser.csproj", "{10FBA5F4-5350-4C94-85DC-D06B391D28C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolParser", "src\PolParser\PolParser.csproj", "{10FBA5F4-5350-4C94-85DC-D06B391D28C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
