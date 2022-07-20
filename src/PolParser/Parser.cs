@@ -20,11 +20,15 @@ namespace PolParser
             }
 
             var content = File.ReadAllText(path).Replace("\0", "");
+            ValidateFileSize(content);
             ValidateSignature(content);
             ValidateVersion(content);
+            ValidateEmptyPol(content);
 
             var policies = new List<GPRegistryPolicy>(20);
             var settingsRead = content[6..].Replace('[', '\n').Replace(']', '\n').Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            ValidatePolicyCount(settingsRead);
+
             foreach (var setting in settingsRead)
             {
                 var parts = setting.Split(';');
@@ -37,6 +41,30 @@ namespace PolParser
             }
 
             return policies.AsReadOnly();
+        }
+
+        private static void ValidatePolicyCount(string[] settingsRead)
+        {
+            if (settingsRead.Length == 0)
+            {
+                throw new Exception("No policy found in POL file.");
+            }
+        }
+
+        private static void ValidateEmptyPol(string content)
+        {
+            if (content.Length == 6)
+            {
+                throw new Exception("Empty pol file.");
+            }
+        }
+
+        private static void ValidateFileSize(string content)
+        {
+            if (content.Length <= 6)
+            {
+                throw new Exception("File is invalid.");
+            }
         }
 
         private static string GetKeyName(string[] parts) => parts[0] ?? string.Empty;
