@@ -14,12 +14,17 @@ namespace PolParser
     {
         public static IReadOnlyList<GPRegistryPolicy> ReadPolFile(string path)
         {
-            var policies = new List<GPRegistryPolicy>(20);
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentException($"'{nameof(path)}' cannot be null or empty.", nameof(path));
+            }
+
             var content = File.ReadAllText(path).Replace("\0", "");
             ValidateSignature(content);
             ValidateVersion(content);
 
-            var settingsRead = content[6..].Replace("][", "\n").Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            var policies = new List<GPRegistryPolicy>(20);
+            var settingsRead = content[6..].Replace('[', '\n').Replace(']', '\n').Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             foreach (var setting in settingsRead)
             {
                 var parts = setting.Split(';');
@@ -47,7 +52,7 @@ namespace PolParser
                 var bytes = System.Text.Encoding.ASCII.GetBytes(elements[4]);
                 if(bytes.Length == 0)
                 {
-                    return string.Empty;
+                    return default(int).ToString();
                 }
                 var val = ByteArrayToInt(bytes);
                 return val.ToString();
