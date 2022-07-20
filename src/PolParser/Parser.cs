@@ -45,6 +45,10 @@ namespace PolParser
             if (vType == RegType.REG_DWORD || vType == RegType.REG_DWORD_BIG_ENDIAN || vType == RegType.REG_DWORD_LITTLE_ENDIAN || vType == RegType.REG_QWORD || vType == RegType.REG_QWORD_LITTLE_ENDIAN)
             {
                 var bytes = System.Text.Encoding.ASCII.GetBytes(elements[4]);
+                if(bytes.Length == 0)
+                {
+                    return string.Empty;
+                }
                 var val = ByteArrayToInt(bytes);
                 return val.ToString();
             }
