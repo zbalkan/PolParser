@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace PolParser
 {
@@ -43,30 +44,7 @@ namespace PolParser
             return policies.AsReadOnly();
         }
 
-        private static void ValidatePolicyCount(string[] settingsRead)
-        {
-            if (settingsRead.Length == 0)
-            {
-                throw new Exception("No policy found in POL file.");
-            }
-        }
-
-        private static void ValidateEmptyPol(string content)
-        {
-            if (content.Length == 6)
-            {
-                throw new Exception("Empty pol file.");
-            }
-        }
-
-        private static void ValidateFileSize(string content)
-        {
-            if (content.Length <= 6)
-            {
-                throw new Exception("File is invalid.");
-            }
-        }
-
+        #region Parameter sanitization
         private static string GetKeyName(string[] parts) => parts[0] ?? string.Empty;
 
         private static string GetValueName(string[] parts) => parts[1] ?? string.Empty;
@@ -77,8 +55,8 @@ namespace PolParser
         {
             if (vType == RegType.REG_DWORD || vType == RegType.REG_DWORD_BIG_ENDIAN || vType == RegType.REG_DWORD_LITTLE_ENDIAN || vType == RegType.REG_QWORD || vType == RegType.REG_QWORD_LITTLE_ENDIAN)
             {
-                var bytes = System.Text.Encoding.ASCII.GetBytes(elements[4]);
-                if(bytes.Length == 0)
+                var bytes = Encoding.ASCII.GetBytes(elements[4]);
+                if (bytes.Length == 0)
                 {
                     return default(int).ToString();
                 }
@@ -103,10 +81,12 @@ namespace PolParser
             }
             else
             {
-                return ByteArrayToInt(System.Text.Encoding.ASCII.GetBytes(elements[3]));
+                return ByteArrayToInt(Encoding.ASCII.GetBytes(elements[3]));
             }
-        }
+        } 
+        #endregion
 
+        #region Validation methods
         private static void ValidateVersion(string content)
         {
             var version = (int)content[4];
@@ -124,6 +104,31 @@ namespace PolParser
                 throw new Exception("Invalid header.");
             }
         }
+
+        private static void ValidatePolicyCount(string[] settingsRead)
+        {
+            if (settingsRead.Length == 0)
+            {
+                throw new Exception("No policy found in POL file.");
+            }
+        }
+
+        private static void ValidateEmptyPol(string content)
+        {
+            if (content.Length == 6)
+            {
+                throw new Exception("Empty pol file.");
+            }
+        }
+
+        private static void ValidateFileSize(string content)
+        {
+            if (content.Length <= 6)
+            {
+                throw new Exception("File is invalid.");
+            }
+        } 
+        #endregion
 
         private static long ByteArrayToInt(byte[] input)
         {
