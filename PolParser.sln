@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comparer", "src\Comparer\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolParser", "src\PolParser\PolParser.csproj", "{10FBA5F4-5350-4C94-85DC-D06B391D28C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolViewer", "PolViewer\PolViewer.csproj", "{3A25E749-4E1D-4F11-8EB3-957494E552BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolViewer", "src\PolViewer\PolViewer.csproj", "{3A25E749-4E1D-4F11-8EB3-957494E552BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
