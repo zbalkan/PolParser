@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PolViewer
@@ -10,12 +11,16 @@ namespace PolViewer
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
-            foreach (var item in GPHelper.PopulateGPInfo())
-            {
-                var gpoName = item.Name;
-                var GpoId = item.Guid;
-            }
-        }
+        private async void Form1_Load(object sender, EventArgs e) => await PopulateGPInfoAsync();
+
+        private static async Task PopulateGPInfoAsync() =>
+            await Task.Run(() =>
+                {
+                    foreach (var item in GPHelper.PopulateGPInfo())
+                    {
+                        var gpoName = item.Name;
+                        var GpoId = item.Guid;
+                    }
+                });
     }
 }
